@@ -38,9 +38,12 @@ void chSynth::setup() {
 //    fluid_synth_set_reverb(fl_synth, 1.2, 1, 100, 1);
     pthread_mutex_unlock(&mutex);
 
-    setSoundFont("data/SoundFonts/rocking8m11e.sf2");
 
-    // map program changes ---> what for?
+    setSoundFont("data/SoundFonts/merlin_gold.sf2");
+
+    // TODO: load this as well for some cool sound effects
+//    setSoundFont("data/SoundFonts/rocking8m11e.sf2");
+    // map program changes
     programChange( 0, 0 );
     programChange( 1, 0 );
     programChange( 2, 79 );
