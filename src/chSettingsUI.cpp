@@ -13,6 +13,7 @@
 
 chSettingScene::chSettingScene() {
     gui->setHeight(300);
+    midi_choices.push_back("none"); // hackhack
     setup();
 	ofAddListener(gui->newGUIEvent, this, &chSettingScene::guiEvent);
 }
@@ -39,6 +40,7 @@ void chSettingScene::setup() {
         // refresh gui
         gui->removeWidgets();
         gui->addLabel("Settings", OFX_UI_FONT_LARGE);
+        gui->addSpacer();
         
         // Select Midi Input
         midi_choices = chAppState::instance()->midi->getPortList();
