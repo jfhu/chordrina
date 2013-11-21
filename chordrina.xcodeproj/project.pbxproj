@@ -217,11 +217,6 @@
 		A57401B8183D56E50071035B /* chPlayScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chPlayScene.h; sourceTree = "<group>"; };
 		A57401BB183D6A950071035B /* chSynth.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chSynth.cpp; sourceTree = "<group>"; };
 		A57401BC183D6A950071035B /* chSynth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chSynth.h; sourceTree = "<group>"; };
-		A57401C6183D899C0071035B /* libfluidsynth.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfluidsynth.1.dylib; path = ../../libs/fluidsynth/lib/osx/libfluidsynth.1.dylib; sourceTree = "<group>"; };
-		A57401D0183D9E7D0071035B /* libglib-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libglib-2.0.0.dylib"; path = "../../libs/fluidsynth/lib/osx/libglib-2.0.0.dylib"; sourceTree = "<group>"; };
-		A57401D2183D9E8C0071035B /* libgthread-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libgthread-2.0.0.dylib"; path = "../../libs/fluidsynth/lib/osx/libgthread-2.0.0.dylib"; sourceTree = "<group>"; };
-		A57401D4183D9EA60071035B /* libintl.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libintl.8.dylib; path = ../../libs/fluidsynth/lib/osx/libintl.8.dylib; sourceTree = "<group>"; };
-		A57401D6183D9EB80071035B /* libsndfile.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsndfile.1.dylib; path = ../../libs/fluidsynth/lib/osx/libsndfile.1.dylib; sourceTree = "<group>"; };
 		A57401DC183DA6CB0071035B /* Helvetica Neue.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Helvetica Neue.ttf"; sourceTree = "<group>"; };
 		A57401DE183DA6CB0071035B /* NewMedia Fett.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NewMedia Fett.ttf"; sourceTree = "<group>"; };
 		A57401E0183DA6CB0071035B /* rocking8m11e.sf2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = rocking8m11e.sf2; sourceTree = "<group>"; };
@@ -527,18 +522,6 @@
 			path = ../../addons/ofxTrueTypeFontUC/src;
 			sourceTree = "<group>";
 		};
-		A57401CF183D9E560071035B /* fluidsynth */ = {
-			isa = PBXGroup;
-			children = (
-				A57401D6183D9EB80071035B /* libsndfile.1.dylib */,
-				A57401D4183D9EA60071035B /* libintl.8.dylib */,
-				A57401D2183D9E8C0071035B /* libgthread-2.0.0.dylib */,
-				A57401D0183D9E7D0071035B /* libglib-2.0.0.dylib */,
-				A57401C6183D899C0071035B /* libfluidsynth.1.dylib */,
-			);
-			name = fluidsynth;
-			sourceTree = "<group>";
-		};
 		A57401DB183DA6CB0071035B /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -612,7 +595,6 @@
 		BBAB23CA13894EDB00AA2426 /* 3rd party frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A57401CF183D9E560071035B /* fluidsynth */,
 				BBAB23BE13894E4700AA2426 /* GLUT.framework */,
 			);
 			name = "3rd party frameworks";
