@@ -1,0 +1,9 @@
+[submodule "addons/ofxMidi"]
+	path = addons/ofxMidi
+	url = git://github.com/danomatika/ofxMidi.git
+[submodule "addons/ofxTrueTypeFontUC"]
+	path = addons/ofxTrueTypeFontUC
+	url = git://github.com/hironishihara/ofxTrueTypeFontUC
+[submodule "addons/ofxUI"]
+	path = addons/ofxUI
+	url = git://github.com/rezaali/ofxUI
