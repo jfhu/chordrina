@@ -21,6 +21,8 @@ chSynth::~chSynth() {
     cleanup();
 }
 
+
+
 void chSynth::setup() {
     // initialization
     ofLogNotice() << "chSynth: " << "initializing...";
@@ -32,16 +34,19 @@ void chSynth::setup() {
     fluid_settings_setnum(fl_settings, "synth.sample-rate", (double)sample_rate);
     fluid_settings_setint(fl_settings, "synth.polyphony", polyphony);
     fl_synth = new_fluid_synth(fl_settings);
+    // TODO: play with reverb
+//    fluid_synth_set_reverb(fl_synth, 1.2, 1, 100, 1);
     pthread_mutex_unlock(&mutex);
 
     setSoundFont("data/SoundFonts/rocking8m11e.sf2");
 
     // map program changes ---> what for?
     programChange( 0, 0 );
-    programChange( 1, 79 );
-    programChange( 2, 4 );
-    programChange( 3, 10 );
-    programChange( 4, 13 );
+    programChange( 1, 0 );
+    programChange( 2, 79 );
+    programChange( 3, 4 );
+    programChange( 4, 10 );
+    programChange( 5, 13 );
 
     chAppState::instance()->synth = this;
 }

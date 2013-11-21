@@ -30,7 +30,6 @@ public:
 private:
     ofxMidiIn * midiIn = new ofxMidiIn();
 
-    std::string keys;
     std::vector<int> keydown;
 };
 

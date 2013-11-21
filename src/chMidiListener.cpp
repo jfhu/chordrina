@@ -7,6 +7,7 @@
 //
 
 #include "chMidiListener.h"
+#include "chAppState.h"
 
 #include <iostream>
 #include <cstdlib>
@@ -40,22 +41,56 @@ void chMidiListener::setPort(std::string portName) {
     currentPortName = portName;
 }
 
+void forwardMidiMessageToSynth(ofxMidiMessage& msg) {
+    chSynth * synth = chAppState::instance()->synth;
+    switch (msg.status) {
+        case MIDI_NOTE_OFF:
+            synth->noteOff(msg.channel, msg.pitch);
+            break;
+        case MIDI_NOTE_ON:
+            synth->noteOn(msg.channel, msg.pitch, msg.velocity);
+            break;
+        case MIDI_CONTROL_CHANGE:
+            synth->controlChange(msg.channel, msg.control, msg.value);
+            break;
+        case MIDI_PROGRAM_CHANGE:
+            synth->programChange(msg.channel, msg.value);
+            break;
+        case MIDI_PITCH_BEND:
+            synth->pitchBend(msg.channel, msg.value);
+            break;
+        case MIDI_AFTERTOUCH:
+            ofLogNotice() << "midiListener: " << "aftertouch ignored";
+            break;
+        case MIDI_POLY_AFTERTOUCH:
+            ofLogNotice() << "midiListener: " << "poly-aftertouch ignored";
+            break;
+        default:
+            ofLogWarning() << "midiListener: " << "unknown midi status " << msg.status;
+    }
+}
+
+
 void chMidiListener::newMidiMessage(ofxMidiMessage& msg) {
-    ofLogNotice() << "midiListener: " << msg.pitch << " " << msg.velocity << " " <<
-        msg.control << " " << msg.value << " " << msg.deltatime;
     
+    // hackhack
+    if (msg.status == MIDI_NOTE_ON && msg.velocity == 0) {
+        msg.status = MIDI_NOTE_OFF;
+    }
+
+    ofLogNotice() << "midiListener: " << msg.toString();
+
+    forwardMidiMessageToSynth(msg);
+
     if (msg.velocity == 0) {
         keydown.erase(std::remove(keydown.begin(), keydown.end(), msg.pitch), keydown.end());
     } else {
         keydown.push_back(msg.pitch);
     }
 
-    std::stringstream out;
-    out << msg.pitch;
-    keys = out.str();
 }
+
 
 std::vector<int> chMidiListener::getKeys() {
     return keydown;
 }
-
