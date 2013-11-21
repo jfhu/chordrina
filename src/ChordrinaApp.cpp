@@ -46,10 +46,8 @@ void ChordrinaApp::draw(){
 }
 
 void ChordrinaApp::audioOut(float * buffer, int bufferSize, int nChannels) {
-//    std::cerr << ".";
-    for (size_t i = 0; i < bufferSize; i ++) {
-        buffer[i] = ofRandom(0, 1) * 0.1;
-    }
+    // I thought 'bufferSize' here should be 'numFrames'???
+    synth->synthesize2(buffer, bufferSize);
 }
 
 void ChordrinaApp::windowResized(int w, int h) {

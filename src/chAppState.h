@@ -12,27 +12,31 @@
 #include <iostream>
 #include <string>
 #include "chMidiListener.h"
+#include "chSynth.h"
 #include "chScene.h"
 
 class chAppState {
 public:
-	static chAppState * instance();
+    static chAppState * instance();
 
-	// some global stuff
-	chMidiListener * midi = new chMidiListener();
-	bool should_show_debug = true;
-	bool should_show_setting = true;
-	SCENE current_scene = SCENE_LEARN;
+    // some global stuff
+    chMidiListener * midi = new chMidiListener();
+    chSynth * synth = NULL;
+
+    // state
+    bool should_show_debug = true;
+    bool should_show_setting = true;
+    SCENE current_scene = SCENE_LEARN;
     std::string current_chord = "A Maj";
 
 private:
-	chAppState() {
-		midi->setup();
-	};
-	chAppState(chAppState const&) {};
-	static chAppState * m_instance;
+    chAppState() {
+        midi->setup();
+    };
+    chAppState(chAppState const&) {};
+    static chAppState * m_instance;
 
-	// App state
+    // App state
 
 };
 

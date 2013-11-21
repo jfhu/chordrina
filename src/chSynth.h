@@ -17,6 +17,8 @@
 #include <iostream>
 #include <string>
 #include <fluidsynth.h>
+#include <pthread.h>
+
 
 class chSynth {
 public:
@@ -26,6 +28,14 @@ public:
     void setup();
     void setSoundFont(const char* filename);
     
+    void programChange( int channel, int program );
+    void controlChange( int channel, int data2, int data3 );
+    void noteOn( int channel, float pitch, int velocity );
+    void pitchBend( int channel, float pitchDiff );
+    void noteOff( int channel, int pitch );
+    void allNotesOff( int channel );
+    bool synthesize2( float* buffer, unsigned int numFrames );
+
 protected:
     
     int sample_rate = 441000;
@@ -35,6 +45,8 @@ protected:
     fluid_settings_t * fl_settings = NULL;
     fluid_synth_t * fl_synth = NULL;
     
+    pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+
     void cleanup();
     
 };

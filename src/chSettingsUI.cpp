@@ -77,6 +77,9 @@ void chSettingScene::draw() {
     if (++counter > 60) { // Detect new midi devices every second
         counter = 0;
         setup();
+
+         // test sound
+        chAppState::instance()->synth->noteOn(0, 60, 92.34);
     }
     //    ofPushStyle();
     //    ofEnableBlendMode(OF_BLENDMODE_ALPHA);
