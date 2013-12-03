@@ -56,19 +56,19 @@ void chLearningScene::update() {
     }
 }
 
-std::map<int, ofxTrueTypeFontUC*> helveticas;
+std::map<int, ofxTrueTypeFontUC*> fonts;
 void draw_text(std::string text, double xoffset) {
     double x = ofGetWidth() / 2.0;
     double y = ofGetHeight() / 2.0;
     int size = (int)(min(x, y) * 0.1);
     
-    if (helveticas.find(size) == helveticas.end()) {
+    if (fonts.find(size) == fonts.end()) {
         ofxTrueTypeFontUC * new_font = new ofxTrueTypeFontUC();
-        new_font->loadFont("Fonts/Helvetica Neue.ttf", size);
-        helveticas[size] = new_font;
+        new_font->loadFont("Fonts/Cutie Patootie.ttf", size);
+        fonts[size] = new_font;
     }
     
-    ofxTrueTypeFontUC * font = helveticas[size];
+    ofxTrueTypeFontUC * font = fonts[size];
     double text_width = font->stringWidth(text);
     font->drawString(text, x + xoffset - text_width / 2.0, y + size / 2.0);
 }
