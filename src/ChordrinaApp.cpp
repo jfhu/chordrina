@@ -3,46 +3,69 @@
 #include "chChord.h"
 
 void ChordrinaApp::setup(){
+    ofSetLogLevel(OF_LOG_VERBOSE);
     ofSetFrameRate(60);
-    ofSetCircleResolution(96);
+    ofSetCircleResolution(100);
+    ofEnableAlphaBlending();
+    ofEnableSmoothing();
+    
     // ofSetFullscreen(true);
 	// ofEnableAlphaBlending();
     
+    // Setup fluidsynth
     synth->setup();
     
+    // Setup output sound
     // soundStream.listDevices();
     // soundStream.setDeviceID(1);
     soundStream.setup(this, 2, 0, sampleRate, bufferSize, 4);
+    
+    // Setup Scenes
+    menu_scene->setup();
+    learning_scene->setup();
+    setting_scene->setup();
+    practice_scene->setup();
+    play_scene->setup();
+    
+    windowResized(ofGetWidth(), ofGetHeight());
 }
 
 void ChordrinaApp::update() {
-
+    switch (app_state->current_scene_type) {
+        case SCENE_LEARN:
+            app_state->current_scene = learning_scene;
+            break;
+            
+        case SCENE_PLAY:
+            app_state->current_scene = play_scene;
+            break;
+            
+        case SCENE_MENU:
+            app_state->current_scene = menu_scene;
+            break;
+            
+        case SCENE_PRACTICE:
+            app_state->current_scene = practice_scene;
+            break;
+            
+        default:
+            break;
+    }
+    app_state->current_scene->update();
 }
 
 void ChordrinaApp::draw(){
     
-    switch (app_state->current_scene) {
-        case SCENE_LEARN:
-            learning_scene->draw();
-            break;
-        case SCENE_PRACTICE:
-            practice_scene->draw();
-            break;
-        case SCENE_PLAY:
-            play_scene->draw();
-            break;
-        default:
-            std::cerr << "Unrecognized Scene: " << app_state->current_scene << std::endl;
-            break;
-    }
+    app_state->current_scene->draw();
 
 	if (app_state->should_show_setting) {
 		setting_scene->draw();
 	}
 
 	if (app_state->should_show_debug) {
-//		ofDrawBitmapString(ofToString(ofGetFrameRate(), 2)+"fps", 10, 15);
+		ofDrawBitmapString(ofToString(ofGetFrameRate(), 1)+"fps", ofGetWidth() - 60, 15);
 	}
+    
 }
 
 void ChordrinaApp::audioOut(float * buffer, int bufferSize, int nChannels) {
@@ -51,6 +74,7 @@ void ChordrinaApp::audioOut(float * buffer, int bufferSize, int nChannels) {
 }
 
 void ChordrinaApp::windowResized(int w, int h) {
+
 }
 
 

@@ -26,7 +26,8 @@ public:
     // state
     bool should_show_debug = true;
     bool should_show_setting = true;
-    SCENE current_scene = SCENE_LEARN;
+    SCENE current_scene_type = SCENE_LEARN;
+    chScene* current_scene = NULL;
     std::string current_chord = "A Maj";
 
 private:

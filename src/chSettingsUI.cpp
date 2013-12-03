@@ -102,10 +102,20 @@ void chSettingScene::guiEvent(ofxUIEventArgs &e) {
         }
     } else if (kind == OFX_UI_WIDGET_LABELBUTTON) {
         ofxUIButton * button = e.getButton();
-        if (name == "Next Chord" && button->getValue() == 1) {
+        if (button->getValue() != 1) {
+            return;
+        }
+        
+        if (name == "Next Chord") {
             std::string rand_chord = chordList[rand() % 12];
             std::string rand_quality = qualityList[rand() % 5];
             chAppState::instance()->current_chord = rand_chord + " " + rand_quality;
+        } else if (name == "Education") {
+            chAppState::instance()->current_scene_type = SCENE_LEARN;
+        } else if (name == "Practice") {
+            chAppState::instance()->current_scene_type = SCENE_PRACTICE;
+        } else if (name == "Play A Song") {
+            chAppState::instance()->current_scene_type = SCENE_PLAY;
         }
         
         

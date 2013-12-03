@@ -12,7 +12,7 @@
 #include <iostream>
 #include "chScene.h"
 
-class chPlayScene {
+class chPlayScene : public chScene {
 public:
     virtual void setup();
     virtual void draw();

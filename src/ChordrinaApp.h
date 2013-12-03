@@ -28,6 +28,7 @@ private:
     ofSoundStream soundStream;
     chSynth * synth = new chSynth(sampleRate, polyphony);
 
+
 public:
     void setup();
     void update();
