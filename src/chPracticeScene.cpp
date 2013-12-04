@@ -25,25 +25,54 @@ void chPracticeScene::setup() {
     int arr[5] = {0};
     chProgression prog1;
     
+    // F
     arr[0] = 65;
     arr[1] = 69;
     arr[2] = 72;
     prog1.addChord(chChord(arr, 3));
     
+    // G
     arr[0] = 67;
     arr[1] = 71;
     arr[2] = 74;
     prog1.addChord(chChord(arr, 3));
     
+    // Em
     arr[0] = 64;
     arr[1] = 67;
     arr[2] = 71;
     prog1.addChord(chChord(arr, 3));
     
+    // Am
     arr[0] = 69;
     arr[1] = 72;
     arr[2] = 76;
     prog1.addChord(chChord(arr, 3));
+    
+    // Dm
+    arr[0] = 74;
+    arr[1] = 77;
+    arr[2] = 81;
+    prog1.addChord(chChord(arr, 3));
+    
+    // G
+    arr[0] = 79;
+    arr[1] = 83;
+    arr[2] = 86;
+    prog1.addChord(chChord(arr, 3));
+    
+    // C
+    arr[0] = 72;
+    arr[1] = 76;
+    arr[2] = 79;
+    prog1.addChord(chChord(arr, 3));
+    
+    // C7
+    arr[0] = 72;
+    arr[1] = 76;
+    arr[2] = 79;
+    arr[3] = 82;
+    prog1.addChord(chChord(arr, 4));
     
     progression.push_back(prog1);
     
