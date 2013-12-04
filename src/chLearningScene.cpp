@@ -9,11 +9,11 @@
 #include "ofMain.h"
 #include "ofxTrueTypeFontUC.h"
 #include <map>
-#include <cmath>
 
 #include "chLearningScene.h"
 #include "chAppState.h"
 #include "chChord.h"
+
 
 void chLearningScene::setup() {
     
@@ -60,10 +60,10 @@ void chLearningScene::update() {
 }
 
 std::map<int, ofxTrueTypeFontUC*> fonts;
-void draw_text(std::string text, double xoffset, double y) {
+void draw_text(std::string text, double xoffset) {
     double x = ofGetWidth() / 2.0;
-//    double y = ofGetHeight() / 2.0;
-    int size = (int)(y * 0.15);
+    double y = ofGetHeight() / 2.0;
+    int size = (int)(min(x, y) * 0.1);
     
     if (fonts.find(size) == fonts.end()) {
         ofxTrueTypeFontUC * new_font = new ofxTrueTypeFontUC();
@@ -86,15 +86,12 @@ void chLearningScene::draw() {
         bgDots[i].drawCenter();
     }
 
-    static double left_rand = ofRandom(0, pi);
-    static double right_rand = ofRandom(0, pi);
+    
 
     // Draw two circles
 	double x = ofGetWidth() / 2.0;
 	double y = ofGetHeight() / 2.0;
 	double diameter = min(x, y) * 0.3;
-    double left_y = y + sin( (fmod((double)ofGetElapsedTimef(), 2*PI) + left_rand)*3 ) * 5;
-    double right_y = y + sin((fmod((double)ofGetElapsedTimef(), 2*PI) + right_rand)*3) * 5;
     
     // Current Chord
     std::vector<int> keydown = chAppState::instance()->midi->getKeys();
@@ -113,10 +110,10 @@ void chLearningScene::draw() {
     
     // Left Circle
     ofSetColor(57, 135, 238);
-    ofCircle(x-diameter, left_y, diameter);
+    ofCircle(x-diameter, y, diameter);
     
     // Right Circle
-
+    ofSetColor(238, 57, 135);
     
     // Check if the user is playing the right chord
     for (int i = 0; i < current_chords.size(); i++){
@@ -124,33 +121,32 @@ void chLearningScene::draw() {
             current_chord = current_chords[i];
             ofSetColor(135, 238, 57);
 
-            ofCircle(x+diameter, right_y, diameter);
+            ofCircle(x+diameter, y, diameter);
             
             // font color
             ofSetColor(255, 255, 255);
             
             // draw target chord
-            draw_text(expected_chord, -diameter, left_y);
+            draw_text(expected_chord, -diameter);
             
             // draw current chord
-            draw_text(current_chord, diameter, right_y);
+            draw_text(current_chord, diameter);
 
             return;
         }
     }
     
     // Didn't  play the correct chord
-    ofSetColor(238, 57, 135);
     current_chord = current_chords[0];
-	ofCircle(x+diameter, right_y, diameter);
+	ofCircle(x+diameter, y, diameter);
     
     // font color
     ofSetColor(255, 255, 255);
     
     // draw target chord
-    draw_text(expected_chord, -diameter, left_y);
+    draw_text(expected_chord, -diameter);
     
     // draw current chord
-    draw_text(current_chord, diameter, right_y);
+    draw_text(current_chord, diameter);
 
 }

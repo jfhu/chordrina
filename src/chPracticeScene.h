@@ -24,30 +24,20 @@ public:
     double x = 0.5, y = 0.5;
     double currentx = 0.5, currenty = 0.5;
     static ofxTrueTypeFontUC * font;
-    chImage bgBubble = chImage("bubble", "Img/bubble.png");
     
     chProgressionChord(const chChord & c) {
         chord = c;
-        bgBubble.r = 255;
-        bgBubble.g = 255;
-        bgBubble.b = 255;
-        bgBubble.tmp_a = 105;
     }
     
     void draw() {
-        
+        ofSetColor(255, 255, 255);
         string name = chord.getFirstName();
         double this_width = chProgressionChord::font->stringWidth(name);
         double this_height = chProgressionChord::font->stringHeight(name);
         std::cerr << currentx << "," << currenty << std::endl;
-        double size = 120;
-        bgBubble.draw(currentx * ofGetWidth() - size/2, currenty * ofGetHeight() - size/2 - this_height, size, size);
-        ofSetColor(0, 136, 204);
         chProgressionChord::font->drawString(chord.getFirstName(),
                                              currentx * ofGetWidth() - this_width/2.0,
                                              currenty * ofGetHeight() - this_height/2.0);
-
-
     }
     
     void move() {

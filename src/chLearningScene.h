@@ -24,7 +24,6 @@ public:
 	virtual void draw();
 private:
     chImage bgImg = chImage("background", "Img/bg.jpg");
-    chImage bgBubble = chImage("bubble", "Img/bubble.png");
     
     vector<chImage> bgDots;
 };
