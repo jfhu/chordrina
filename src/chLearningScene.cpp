@@ -94,12 +94,16 @@ void chLearningScene::draw() {
     
     // Current Chord
     std::vector<int> keydown = chAppState::instance()->midi->getKeys();
-
+    static std::vector<int> prevKeyDown;
+    
     chChord chord(keydown);
     
     // TODO: chord.getNames() and see if expected_chord is in the array
-    std::string current_chord = chord.getName();
+    string current_chord;
+    vector<string> current_chords = chord.getNames();
     
+    chord.printName();
+
     // Expected Chord
     std::string expected_chord = chAppState::instance()->current_chord;
     
@@ -109,9 +113,30 @@ void chLearningScene::draw() {
     
     // Right Circle
     ofSetColor(238, 57, 135);
-    if (current_chord == expected_chord) {
-        ofSetColor(135, 238, 57);
+    
+    // Check if the user is playing the right chord
+    for (int i = 0; i < current_chords.size(); i++){
+        if (current_chords[i] == expected_chord) {
+            current_chord = current_chords[i];
+            ofSetColor(135, 238, 57);
+
+            ofCircle(x+diameter, y, diameter);
+            
+            // font color
+            ofSetColor(255, 255, 255);
+            
+            // draw target chord
+            draw_text(expected_chord, -diameter);
+            
+            // draw current chord
+            draw_text(current_chord, diameter);
+
+            return;
+        }
     }
+    
+    // Didn't  play the correct chord
+    current_chord = current_chords[0];
 	ofCircle(x+diameter, y, diameter);
     
     // font color

@@ -83,33 +83,47 @@ chChord::chChord(std::vector<int>& notes) {
     initChordId(notes);
 }
 
-std::string chChord::getName() {
-    if (chordId < 0)
-        return "?";
+vector<string> chChord::getNames() {
+    vector<string> names;
+    if (chordId.size() == 0){
+        names.push_back("?");
+        return names;
+    }
     
-    // 12 different root
-    std::string res = chordList[ chordId % 12 ];
+//    if (chordId < 0)
+//        return "?";
     
-    // Every 12 chords, the quality is different.
-    res = res + " " + qualityList[ chordId / 12 ];
-    
-    return res;
+    for (int i = 0; i < chordId.size(); i++){
+        // 12 different root
+        string res = chordList[ chordId[i] % 12 ];
+        // Every 12 chords, the quality is different.
+        res = res + " " + qualityList[ chordId[i] / 12 ];
+        names.push_back(res);
+    }
+    return names;
 }
 
 void chChord::printName() {
-    std::cout << getName() << std::endl;
+    vector<string> chordNames = getNames();
+    for (int i = 0; i < chordNames.size(); i++){
+        cout << chordNames[i] << endl;
+    }
 }
 
 void chChord::initChordId(std::vector<int>& notes) {
     // User must play at least 3 notes
     if (notes.size() < 3) {
-        chordId = -1;
         return;
     }
     // Step 1 + 2: Get chroma
     std::vector<int> myChroma = getChroma(notes);
     // Step 3: Match with the chord templates
     chordId = matchChroma(myChroma);
+//    std::cerr << chordId.size() << std::endl;
+//    for (int i = 0; i < chordId.size(); i++) {
+//        std::cerr << chordId[i] << " ";
+//    }
+//    std::cerr << std::endl;
 }
 
 std::vector<int> chChord::getChroma(std::vector<int>& notes) {
@@ -136,24 +150,52 @@ std::vector<int> chChord::getChroma(std::vector<int>& notes) {
 
 
 // Find an index that maximizing the fitness vector, so that to find the chord Id
-int findMaxIndex(int fitness_vector[numChords]){
-    int maxIndex = -1;
-    int maxVal = 0;
+vector<int> findMaxIndex(int fitness_vector[numChords]){
     
+    vector<int> maxIndex;
+    int maxVal = 0;
     for (int i = 0; i < numChords;i ++){
+        // If find a new max value, clean the current buffer
         if (fitness_vector[i] > maxVal){
+            maxIndex.clear();
             maxVal = fitness_vector[i];
-            maxIndex = i;
+            if (maxVal >= 3)
+                maxIndex.push_back(i);
+        }
+        // If find a second maerytch, add to the current buffer
+        else if (fitness_vector[i] == maxVal){
+            if (maxVal >= 3)
+                maxIndex.push_back(i);
         }
     }
-//    std::cout << "maxChordId: " << maxIndex << std::endl;
+    //    std::cout << "maxChordId: " << maxIndex << std::endl;
     return maxIndex;
+    
+    
+    
+//    vector<int> maxIndex;
+//    int maxVal = 0;
+//    for (int i = 0; i < numChords;i ++){
+//        // If find a new max value, clean the current buffer
+//        if (fitness_vector[i] > maxVal){
+//            maxIndex.clear();
+//            maxVal = fitness_vector[i];
+//            if (maxVal >= 3)
+//                maxIndex.push_back(i);
+//        }
+//        // If find a second match, add to the current buffer
+//        else if (fitness_vector[i] == maxVal){
+//            if (maxVal >= 3)
+//                maxIndex.push_back(i);
+//        }
+//    }
+////    std::cout << "maxChordId: " << maxIndex << std::endl;
+//    return maxIndex;
 }
 
 
-
 // A rudimentary chord matching
-int chChord::matchChroma(std::vector<int>& chroma) {
+vector<int> chChord::matchChroma(std::vector<int>& chroma) {
     // Get a fitness matrix through matrix multiplication, and find the minimum distance
     // Dot product of the numChords * 12 template, and the 12 * 1 chroma vector
     

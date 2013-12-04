@@ -13,22 +13,25 @@
 #include <string>
 #include <vector>
 
+using namespace std;
+
 class chChord {
 public:
     static void initTemplate();
     static bool templateInitialized;
 
-    chChord(std::vector<int>& notes);
+    chChord(vector<int>& notes);
 
-    std::string getName();
+    vector<string> getNames();
     void printName();
 
 private:
-    int chordId = -1;
+    vector<int> chordId;
+//    int chordId = -1;
 
-    void initChordId(std::vector<int>& notes);
-    std::vector<int> getChroma(std::vector<int>& notes);
-    int matchChroma(std::vector<int>& chroma);
+    void initChordId(vector<int>& notes);
+    vector<int> getChroma(vector<int>& notes);
+    vector<int> matchChroma(vector<int>& chroma);
 
 };
 
