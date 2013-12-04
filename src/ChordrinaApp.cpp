@@ -64,7 +64,7 @@ void ChordrinaApp::draw(){
 
 	if (app_state->should_show_debug) {
         ofSetColor(255, 255, 255);
-		ofDrawBitmapString(ofToString(ofGetFrameRate(), 1)+"fps", ofGetWidth() - 60, 15);
+		//ofDrawBitmapString(ofToString(ofGetFrameRate(), 1)+"fps", ofGetWidth() - 60, 15);
 	}
     
 }
