@@ -77,6 +77,8 @@ void draw_text(std::string text, double xoffset) {
 }
 
 
+extern std::string chordList[];
+extern std::string qualityList[];
 void chLearningScene::draw() {
     // Draw background image
     bgImg.draw(0, 0, ofGetWidth(), ofGetHeight());
@@ -86,7 +88,6 @@ void chLearningScene::draw() {
         bgDots[i].drawCenter();
     }
 
-    
 
     // Draw two circles
 	double x = ofGetWidth() / 2.0;
@@ -95,35 +96,101 @@ void chLearningScene::draw() {
     
     // Current Chord
     std::vector<int> keydown = chAppState::instance()->midi->getKeys();
-    static std::vector<int> prevKeyDown;
+    static std::vector<int> prevKeyDown = keydown;
+    static double lastTime_diff = 0;
     
-    chChord chord(keydown);
+    cout << "time: " << ofGetElapsedTimef() << " " << lastTime_diff << endl;
+    bool same = true;
+    if (keydown.size() == prevKeyDown.size()) {
+        for (size_t i = 0; i < keydown.size(); i++) {
+            cout << keydown[i] << " " << prevKeyDown[i] << endl;
+            if (keydown[i] != prevKeyDown[i]) {
+                same = false;
+                break;
+            }
+        }
+    } else {
+        same = false;
+    }
     
-    // TODO: chord.getNames() and see if expected_chord is in the array
-    string current_chord;
-    vector<string> current_chords = chord.getNames();
-    
-    chord.printName();
+    if (same){
+        cout << "same" << endl;
+    }
+    else {
+        lastTime_diff = ofGetElapsedTimef();
+        cout << "diff" << endl;
+        prevKeyDown = keydown;
 
-    // Expected Chord
-    std::string expected_chord = chAppState::instance()->current_chord;
+    }
     
-    // Left Circle
-    ofSetColor(57, 135, 238);
-    ofCircle(x-diameter, y, diameter);
-    
-    // Right Circle
-    ofSetColor(238, 57, 135);
-    
-    // Check if the user is playing the right chord
-    for (int i = 0; i < current_chords.size(); i++){
-        if (current_chords[i] == expected_chord) {
-            current_chord = current_chords[i];
-            ofSetColor(135, 238, 57);
 
-            ofCircle(x+diameter, y, diameter);
+        chChord chord(keydown);
+    
+        // Modified: chord.getNames() and see if expected_chord is in the array
+        string current_chord;
+        vector<string> current_chords = chord.getNames();
+    
+        chord.printName();
+        cout << current_score << " " << best_score << endl;
+        ofDrawBitmapString("Current Score " + ofToString(current_score), ofGetWidth() - 130, 30);
+        ofDrawBitmapString("Best Score " + ofToString(best_score), ofGetWidth() - 130, 45);
+
+        // Expected Chord
+        std::string expected_chord = chAppState::instance()->current_chord;
+        
+        // Left Circle
+        ofSetColor(57, 135, 238);
+        ofCircle(x-diameter, y, diameter);
+        
+        // Right Circle
+        ofSetColor(238, 57, 135);
+        ofCircle(x+diameter, y, diameter);
+    
+        if ((ofGetElapsedTimef() - lastTime_diff) > 0.5){
+            // Check if the user is playing the right chord
+            for (int i = 0; i < current_chords.size(); i++){
+                if (current_chords[i] == expected_chord) {
+                    
+                    // User played correct chord
+                    
+                    if (!current_chord_correct) {
+                        current_score ++;
+                        if (current_score > best_score) {
+                            best_score = current_score;
+                        }
+                        
+                        std::string rand_chord = chordList[rand() % 12];
+                        std::string rand_quality = qualityList[rand() % 5];
+                        chAppState::instance()->current_chord = rand_chord + " " + rand_quality;
+                        current_chord_correct = false;
+                        lastTime_diff = ofGetElapsedTimef() + 1;
+                    }
+                    
+//                    current_chord_correct = true;
+                    
+                    current_chord = current_chords[i];
+                    ofSetColor(135, 238, 57);
+
+                    ofCircle(x+diameter, y, diameter);
+                    
+                    // font color
+                    ofSetColor(255, 255, 255);
+                    
+                    // draw target chord
+                    draw_text(expected_chord, -diameter);
+                    
+                    // draw current chord
+                    draw_text(current_chord, diameter);
+                    
+                    return;
+                }
+            }
             
-            // font color
+            // User played wrong chord
+            if (keydown.size() > 0)
+                current_score = 0;
+            current_chord = current_chords[0];
+            
             ofSetColor(255, 255, 255);
             
             // draw target chord
@@ -131,22 +198,19 @@ void chLearningScene::draw() {
             
             // draw current chord
             draw_text(current_chord, diameter);
-
+            
             return;
         }
-    }
     
-    // Didn't  play the correct chord
-    current_chord = current_chords[0];
-	ofCircle(x+diameter, y, diameter);
-    
-    // font color
-    ofSetColor(255, 255, 255);
-    
-    // draw target chord
-    draw_text(expected_chord, -diameter);
-    
-    // draw current chord
-    draw_text(current_chord, diameter);
+        // Didn't  play chord
+        current_chord = "?";
+        // font color
+        ofSetColor(255, 255, 255);
+        
+        // draw target chord
+        draw_text(expected_chord, -diameter);
+        
+        // draw current chord
+        draw_text(current_chord, diameter);
 
 }

@@ -92,5 +92,6 @@ void chMidiListener::newMidiMessage(ofxMidiMessage& msg) {
 
 
 std::vector<int> chMidiListener::getKeys() {
+    std::sort(keydown.begin(), keydown.end());
     return keydown;
 }

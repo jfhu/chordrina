@@ -26,6 +26,10 @@ private:
     chImage bgImg = chImage("background", "Img/bg.jpg");
     
     vector<chImage> bgDots;
+    
+    int best_score = 0;
+    int current_score = 0;
+    bool current_chord_correct = false;
 };
 
 #endif /* defined(__chordrina__chLearningScene__) */

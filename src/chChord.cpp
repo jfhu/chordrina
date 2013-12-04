@@ -11,7 +11,7 @@
 int chordTemplate[numChords][12];
 bool chChord::templateInitialized = false;
 
-std::string chordList[12] = { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
+std::string chordList[12] = { "C", "C#", "D", "Eb", "E", "F", "F#", "G", "Ab", "A", "Bb", "B" };
 std::string qualityList[6] = { "Maj", "Min", "Aug", "Dim", "Mm7", "mm7" };
 
 void buildChordRow(int index[], int length, int rowBegin){
