@@ -28,7 +28,7 @@ public:
     double dx = 0, dy = 0;
     double width = 50, height = 50;
     int r = 255, g = 255, b = 255, a = 255;
-    int tmp_a = 0; // for fade in
+    int tmp_a = 0; // for fade in. tmp_a is the current alpha, and a is the target alpha.
     double fade_duration = 600; // millisecond
     
     chImage(std::string name, std::string filename);
