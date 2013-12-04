@@ -53,7 +53,7 @@ void chImage::move() {
 //    std::cerr << a << " " << tmp_a << " " << dif << std::endl;
     if (a > tmp_a) {
         tmp_a += 1;
-    } else {
+    } else if (a < tmp_a) {
         tmp_a -= 1;
     }
 }
