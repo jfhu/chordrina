@@ -52,6 +52,8 @@ void chLearningScene::update() {
             bgDots[i].dx = 0;
             bgDots[i].tmp_a = 0;
             bgDots[i].a = 150;
+            bgDots[i].b = 255 - ofRandom(0, 40);
+            bgDots[i].g = 255 - ofRandom(0, 40);
         }
     }
 }
