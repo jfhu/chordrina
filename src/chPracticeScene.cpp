@@ -119,6 +119,6 @@ void chPracticeScene::draw() {
     
 //    ofCircle(300, 200, 100);
     
-    test.r = 255; test.g = 185; test.b = 20;
+//    test.r = 255; test.g = 185; test.b = 20;
     test.drawCenter();
 }
