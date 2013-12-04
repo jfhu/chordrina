@@ -40,7 +40,7 @@ public:
         double this_width = chProgressionChord::font->stringWidth(name);
         double this_height = chProgressionChord::font->stringHeight(name);
         std::cerr << currentx << "," << currenty << std::endl;
-        double size = 120;
+        double size = 200;
         bgBubble.draw(currentx * ofGetWidth() - size/2, currenty * ofGetHeight() - size/2 - this_height, size, size);
         ofSetColor(0, 136, 204);
         chProgressionChord::font->drawString(chord.getFirstName(),

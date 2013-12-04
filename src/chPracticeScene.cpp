@@ -17,7 +17,7 @@ void chProgression::addChord(const chChord & chord) {
 }
 
 void chPracticeScene::setup() {
-    chProgressionChord::font->loadFont("Fonts/Cutie Patootie.ttf", 20);
+    chProgressionChord::font->loadFont("Fonts/Cutie Patootie.ttf", 10);
     
     bgImg.tmp_a = 255;
     
@@ -86,10 +86,10 @@ void chPracticeScene::setup() {
     chProgression& curProgression = progression[current_progression_indx];
     for (size_t i = 0; i < curProgression.size(); i ++) {
         
-        curProgression.chords[i].x = (i+1) * 0.2;
+        curProgression.chords[i].x = (i+1) * 0.3;
         curProgression.chords[i].y = 0.5;
         
-        curProgression.chords[i].currentx = (i+1) * 0.2 + 1.5;
+        curProgression.chords[i].currentx = (i+1) * 0.3 + 1.5;
         curProgression.chords[i].currenty = 0.5;
     }
     
