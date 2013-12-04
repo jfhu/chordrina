@@ -148,6 +148,15 @@ std::vector<int> chChord::getChroma(std::vector<int>& notes) {
     return myChroma;
 }
 
+// return number of notes in particular template
+int getNumNotes(int row){
+    int num_notes = 0;
+    for (int j = 0; j < 12; j++){
+        num_notes += chordTemplate[row][j];
+    }
+    return num_notes;
+}
+
 
 // Find an index that maximizing the fitness vector, so that to find the chord Id
 vector<int> findMaxIndex(int fitness_vector[numChords]){
@@ -155,22 +164,26 @@ vector<int> findMaxIndex(int fitness_vector[numChords]){
     vector<int> maxIndex;
     int maxVal = 0;
     for (int i = 0; i < numChords;i ++){
+
         // If find a new max value, clean the current buffer
         if (fitness_vector[i] > maxVal){
             maxIndex.clear();
             maxVal = fitness_vector[i];
-            if (maxVal >= 3)
+            int num_notes = getNumNotes(i);
+            if (maxVal == num_notes)
+//            if (maxVal >= 3)
                 maxIndex.push_back(i);
         }
         // If find a second maerytch, add to the current buffer
         else if (fitness_vector[i] == maxVal){
-            if (maxVal >= 3)
+            int num_notes = getNumNotes(i);
+            if (maxVal == num_notes)
+//            if (maxVal >= 3)
                 maxIndex.push_back(i);
         }
     }
     //    std::cout << "maxChordId: " << maxIndex << std::endl;
     return maxIndex;
-    
     
     
 //    vector<int> maxIndex;
@@ -194,6 +207,7 @@ vector<int> findMaxIndex(int fitness_vector[numChords]){
 }
 
 
+
 // A rudimentary chord matching
 vector<int> chChord::matchChroma(std::vector<int>& chroma) {
     // Get a fitness matrix through matrix multiplication, and find the minimum distance
@@ -214,6 +228,12 @@ vector<int> chChord::matchChroma(std::vector<int>& chroma) {
     //    std::cout << fitness_vector[i] << std::endl;
     //}
     
+    // number of notes
+//    int num_notes = 0;
+//    for (int j = 0; j < 12; j++){
+//        num_notes += chroma[j];
+//    }
+//    
     // Pick up the template that maximize the fitness vector
     return findMaxIndex(fitness_vector);
     
