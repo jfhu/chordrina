@@ -31,6 +31,7 @@ void chLearningScene::setup() {
         bgDots[i].a = 150; // max alpha
     }
     
+    
 }
 
 void chLearningScene::update() {
@@ -86,7 +87,7 @@ void chLearningScene::draw() {
     }
 
     
-    
+
     // Draw two circles
 	double x = ofGetWidth() / 2.0;
 	double y = ofGetHeight() / 2.0;

@@ -78,7 +78,7 @@ void chMidiListener::newMidiMessage(ofxMidiMessage& msg) {
         msg.status = MIDI_NOTE_OFF;
     }
 
-    ofLogNotice() << "midiListener: " << msg.toString();
+    ofLogNotice() << "midiListener: " << msg.toString() << msg.pitch;
 
     forwardMidiMessageToSynth(msg);
 
