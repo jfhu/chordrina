@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A43EF235184EF4A200055C45 /* chMidiFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A43EF233184EF4A200055C45 /* chMidiFile.cpp */; };
 		A45A2F46183DDC930090FB12 /* libfluidsynth.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A45A2F41183DDC780090FB12 /* libfluidsynth.1.dylib */; };
 		A45A2F47183DDCA30090FB12 /* libfluidsynth.1.dylib in Copy Files */ = {isa = PBXBuildFile; fileRef = A45A2F41183DDC780090FB12 /* libfluidsynth.1.dylib */; };
 		A45A2F48183DDCA30090FB12 /* libglib-2.0.0.dylib in Copy Files */ = {isa = PBXBuildFile; fileRef = A45A2F42183DDC780090FB12 /* libglib-2.0.0.dylib */; };
@@ -101,6 +102,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A43EF233184EF4A200055C45 /* chMidiFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chMidiFile.cpp; sourceTree = "<group>"; };
+		A43EF234184EF4A200055C45 /* chMidiFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chMidiFile.h; sourceTree = "<group>"; };
 		A45A2F2C183DDC780090FB12 /* audio.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = audio.h; sourceTree = "<group>"; };
 		A45A2F2D183DDC780090FB12 /* event.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = event.h; sourceTree = "<group>"; };
 		A45A2F2E183DDC780090FB12 /* gen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gen.h; sourceTree = "<group>"; };
@@ -441,6 +444,8 @@
 				A57401BC183D6A950071035B /* chSynth.h */,
 				A581E1DD184E60DB0087F558 /* chImage.cpp */,
 				A581E1DE184E60DB0087F558 /* chImage.h */,
+				A43EF233184EF4A200055C45 /* chMidiFile.cpp */,
+				A43EF234184EF4A200055C45 /* chMidiFile.h */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -757,6 +762,7 @@
 				A4B397431838D25F005F64EB /* RtMidi.cpp in Sources */,
 				A4B397721838D76A005F64EB /* ofxMidiOut.cpp in Sources */,
 				A4B3976E1838D76A005F64EB /* ofxBaseMidi.cpp in Sources */,
+				A43EF235184EF4A200055C45 /* chMidiFile.cpp in Sources */,
 				A581E1DF184E60DB0087F558 /* chImage.cpp in Sources */,
 				A4B3976F1838D76A005F64EB /* ofxMidi.cpp in Sources */,
 				A57401B6183D56D80071035B /* chPracticeScene.cpp in Sources */,

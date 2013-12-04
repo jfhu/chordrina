@@ -103,6 +103,20 @@ vector<string> chChord::getNames() {
     return names;
 }
 
+string chChord::getFirstName() {
+    return getNames()[0];
+}
+
+chChord::chChord(int* arr, int length) {
+    if (!chChord::templateInitialized) {
+        chChord::initTemplate();
+    }
+    
+    std::vector<int> notes;
+    notes.assign(arr, arr + length);
+    initChordId(notes);
+}
+
 void chChord::printName() {
     vector<string> chordNames = getNames();
     for (int i = 0; i < chordNames.size(); i++){

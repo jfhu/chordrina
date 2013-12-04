@@ -21,8 +21,10 @@ public:
     static bool templateInitialized;
 
     chChord(vector<int>& notes);
+    chChord(int* arr, int length);
 
     vector<string> getNames();
+    string getFirstName();
     void printName();
 
 private:
