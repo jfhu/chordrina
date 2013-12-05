@@ -6,7 +6,11 @@
 //
 //
 
+#include <algorithm>
+#include "chAppState.h"
 #include "chPracticeScene.h"
+
+using namespace std;
 
 ofxTrueTypeFontUC * chProgressionChord::font = new ofxTrueTypeFontUC();
 
@@ -95,7 +99,9 @@ void chPracticeScene::setup() {
     
     
     test.tmp_a = 255;
-    test.width = test.height = 400;
+    test.width = test.height = 600;
+    test.relx = 0.3;
+    test.rely = 0.4;
 }
 
 void chPracticeScene::update() {
@@ -105,11 +111,36 @@ void chPracticeScene::update() {
     for (size_t i = 0; i < curProgression.size(); i ++) {
         curProgression.chords[i].move();
     }
+    
+    // Detect keydown
+    vector<int> keydown = chAppState::instance()->midi->getKeys();
+    chChord chord(keydown);
+    vector<string> current_chords = chord.getNames();
+    
+    string expected_chord_name = curProgression.chords[current_progression_chord_indx].chord.getFirstName();
+    
+    bool same = false;
+    for (size_t i = 0; i < current_chords.size(); i++) {
+        if (current_chords[i] == expected_chord_name) {
+            
+            for (size_t i = 0; i < curProgression.size(); i ++) {
+                curProgression.chords[i].x -= 0.3;
+            }
+
+            if (current_progression_chord_indx < curProgression.size() - 1) {
+                current_progression_chord_indx ++;
+            }
+        }
+    }
+        
+    
 }
 
 void chPracticeScene::draw() {
     // Background
     bgImg.draw(0, 0, ofGetWidth(), ofGetHeight());
+    
+    test.drawCenter();
     
     // Progression
     chProgression& curProgression = progression[current_progression_indx];
@@ -120,5 +151,5 @@ void chPracticeScene::draw() {
 //    ofCircle(300, 200, 100);
     
 //    test.r = 255; test.g = 185; test.b = 20;
-    test.drawCenter();
+
 }

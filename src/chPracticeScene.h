@@ -82,6 +82,7 @@ protected:
     
     std::vector<chProgression> progression;
     size_t current_progression_indx = 0;
+    size_t current_progression_chord_indx = 0;
 };
 
 #endif /* defined(__chordrina__chPracticeScene__) */

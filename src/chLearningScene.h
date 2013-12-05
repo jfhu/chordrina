@@ -31,6 +31,10 @@ private:
     int best_score = 0;
     int current_score = 0;
     bool current_chord_correct = false;
+    
+    bool should_draw_green_ball = false;
+    string should_draw_text = "";
+    double last_correct_time = 0;
 };
 
 #endif /* defined(__chordrina__chLearningScene__) */

@@ -152,9 +152,38 @@ void chLearningScene::draw() {
         ofSetColor(57, 135, 238);
         ofCircle(x-diameter, left_y, diameter);
 
-        // Right Circle
-        ofSetColor(238, 57, 135);
+    
+    if (should_draw_green_ball) {
+            // draw green ball
+        ofSetColor(135, 238, 57);
         ofCircle(x+diameter, right_y, diameter);
+
+        // draw target chord
+        ofSetColor(255, 255, 255);
+        draw_text(expected_chord, -diameter, left_y);
+        
+        // draw current chord
+        ofSetColor(255, 255, 255);
+        std::cerr << should_draw_text << std::endl;
+        draw_text(should_draw_text, diameter, right_y);
+
+        
+        if (ofGetElapsedTimef() - last_correct_time > 1.5) {
+            should_draw_green_ball = false;
+            
+            
+            std::string rand_chord = chordList[rand() % 12];
+            std::string rand_quality = qualityList[rand() % 5];
+            chAppState::instance()->current_chord = rand_chord + " " + rand_quality;
+            current_chord_correct = false;
+            lastTime_diff = ofGetElapsedTimef() + 1;
+        }
+        return;
+    }
+    
+    // Right Circle
+    ofSetColor(238, 57, 135);
+    ofCircle(x+diameter, right_y, diameter);
 
         if ((ofGetElapsedTimef() - lastTime_diff) > 0.5){
             // Check if the user is playing the right chord
@@ -168,12 +197,11 @@ void chLearningScene::draw() {
                         if (current_score > best_score) {
                             best_score = current_score;
                         }
+                        
+                        should_draw_green_ball = true;
+                        should_draw_text = current_chord;
+                        last_correct_time = ofGetElapsedTimef();
 
-                        std::string rand_chord = chordList[rand() % 12];
-                        std::string rand_quality = qualityList[rand() % 5];
-                        chAppState::instance()->current_chord = rand_chord + " " + rand_quality;
-                        current_chord_correct = false;
-                        lastTime_diff = ofGetElapsedTimef() + 1;
                     }
 
 //                    current_chord_correct = true;
