@@ -17,4 +17,3 @@ chAppState * chAppState::instance() {
 	}
 	return m_instance;
 }
-

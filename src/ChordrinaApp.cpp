@@ -3,7 +3,7 @@
 #include "chChord.h"
 
 void ChordrinaApp::setup(){
-    ofSetLogLevel(OF_LOG_VERBOSE);
+//    ofSetLogLevel(OF_LOG_VERBOSE);
     ofSetFrameRate(60);
     ofSetCircleResolution(100);
     ofEnableAlphaBlending();

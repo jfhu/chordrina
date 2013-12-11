@@ -103,11 +103,11 @@ void chLearningScene::draw() {
     static std::vector<int> prevKeyDown = keydown;
     static double lastTime_diff = 0;
 
-    cout << "time: " << ofGetElapsedTimef() << " " << lastTime_diff << endl;
+//    cout << "time: " << ofGetElapsedTimef() << " " << lastTime_diff << endl;
     bool same = true;
     if (keydown.size() == prevKeyDown.size()) {
         for (size_t i = 0; i < keydown.size(); i++) {
-            cout << keydown[i] << " " << prevKeyDown[i] << endl;
+//            cout << keydown[i] << " " << prevKeyDown[i] << endl;
             if (keydown[i] != prevKeyDown[i]) {
                 same = false;
                 break;
@@ -118,11 +118,11 @@ void chLearningScene::draw() {
     }
 
     if (same){
-        cout << "same" << endl;
+//        cout << "same" << endl;
     }
     else {
         lastTime_diff = ofGetElapsedTimef();
-        cout << "diff" << endl;
+//        cout << "diff" << endl;
         prevKeyDown = keydown;
 
     }

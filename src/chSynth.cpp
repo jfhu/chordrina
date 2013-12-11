@@ -33,6 +33,7 @@ void chSynth::setup() {
     fl_settings = new_fluid_settings();
     fluid_settings_setnum(fl_settings, "synth.sample-rate", (double)sample_rate);
     fluid_settings_setint(fl_settings, "synth.polyphony", polyphony);
+    fluid_settings_setnum(fl_settings, "synth.gain", 0.35);
     fl_synth = new_fluid_synth(fl_settings);
     // TODO: play with reverb
 //    fluid_synth_set_reverb(fl_synth, 1.2, 1, 100, 1);

@@ -65,6 +65,8 @@ void chSettingScene::setup() {
         
         gui->addLabelButton("Next Chord", "BtnNextChord")
         ->setColorBack(ofxUIColor(0));
+        gui->addLabelButton("Restart", "Restart")
+        ->setColorBack(ofxUIColor(0));
         
         gui->addSpacer();
         
@@ -110,6 +112,8 @@ void chSettingScene::guiEvent(ofxUIEventArgs &e) {
             std::string rand_chord = chordList[rand() % 12];
             std::string rand_quality = qualityList[rand() % 5];
             chAppState::instance()->current_chord = rand_chord + " " + rand_quality;
+        } else if (name == "Restart") {
+            chAppState::instance()->current_scene->setup();
         } else if (name == "Learn Chord") {
             chAppState::instance()->current_scene_type = SCENE_LEARN;
         } else if (name == "Learn Progression") {

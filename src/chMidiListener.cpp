@@ -66,7 +66,8 @@ void forwardMidiMessageToSynth(ofxMidiMessage& msg) {
             ofLogNotice() << "midiListener: " << "poly-aftertouch ignored";
             break;
         default:
-            ofLogWarning() << "midiListener: " << "unknown midi status " << msg.status;
+            ;
+//            ofLogNotice() << "midiListener: " << "unknown midi status " << msg.status;
     }
 }
 
@@ -78,7 +79,7 @@ void chMidiListener::newMidiMessage(ofxMidiMessage& msg) {
         msg.status = MIDI_NOTE_OFF;
     }
 
-    ofLogNotice() << "midiListener: " << msg.toString() << msg.pitch;
+//    ofLogNotice() << "midiListener: " << msg.toString() << msg.pitch;
 
     forwardMidiMessageToSynth(msg);
 
