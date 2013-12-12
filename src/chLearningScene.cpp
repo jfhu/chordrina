@@ -76,6 +76,19 @@ void draw_text(std::string text, double xoffset, double y) {
     font->drawString(text, x + xoffset - text_width / 2.0, y + size / 2.0);
 }
 
+void draw_text(std::string text, double xoffset, double y, int size) {
+    double x = ofGetWidth() / 2.0;
+    if (fonts.find(size) == fonts.end()) {
+        ofxTrueTypeFontUC * new_font = new ofxTrueTypeFontUC();
+        new_font->loadFont("Fonts/Cutie Patootie.ttf", size);
+        fonts[size] = new_font;
+    }
+    
+    ofxTrueTypeFontUC * font = fonts[size];
+    double text_width = font->stringWidth(text);
+    font->drawString(text, x + xoffset - text_width/2.0, y + size/2.0);
+}
+
 
 extern std::string chordList[];
 extern std::string qualityList[];
@@ -97,6 +110,23 @@ void chLearningScene::draw() {
 	double diameter = min(x, y) * 0.3;
     double left_y = y + sin( (fmod((double)ofGetElapsedTimef(), 2*PI) + left_rand)*3 ) * 5;
     double right_y = y + sin((fmod((double)ofGetElapsedTimef(), 2*PI) + right_rand)*3) * 5;
+    
+    
+    // Current Streak / Best Score
+    stringstream ss;
+    ss << "Current Streak: " << current_score << endl;
+
+    if (current_score < best_score) {
+        draw_text(ss.str(), 0, 200, 35);
+        stringstream ss;
+        ss << "Best Score: " << best_score << endl;
+        draw_text(ss.str(), 0, 235, 20);
+    } else {
+        stringstream ss;
+        ss << "Best Score: " << current_score;
+        draw_text(ss.str(), 0, 200, 45);
+    }
+    
 
     // Current Chord
     std::vector<int> keydown = chAppState::instance()->midi->getKeys();
@@ -133,13 +163,8 @@ void chLearningScene::draw() {
         string current_chord;
         vector<string> current_chords = chord.getNames();
 
-    // // Left Circle
-    // ofSetColor(57, 135, 238);
-    // ofCircle(x-diameter, left_y, diameter);
-
-    // // Right Circle
-
-
+    // Left Circle
+    // Right Circle
         chord.printName();
         cout << current_score << " " << best_score << endl;
         ofDrawBitmapString("Current Score " + ofToString(current_score), ofGetWidth() - 130, 30);
@@ -150,27 +175,25 @@ void chLearningScene::draw() {
 
         // Left Circle
         ofSetColor(57, 135, 238);
-        ofCircle(x-diameter, left_y, diameter);
+        ofCircle(x-diameter-20, left_y, diameter);
 
     
     if (should_draw_green_ball) {
             // draw green ball
         ofSetColor(135, 238, 57);
-        ofCircle(x+diameter, right_y, diameter);
+        ofCircle(x+diameter+20, right_y, diameter);
 
         // draw target chord
         ofSetColor(255, 255, 255);
-        draw_text(expected_chord, -diameter, left_y);
+        draw_text(expected_chord, -diameter-20, left_y);
         
         // draw current chord
         ofSetColor(255, 255, 255);
         std::cerr << should_draw_text << std::endl;
-        draw_text(should_draw_text, diameter, right_y);
-
+        draw_text(expected_chord, diameter+20, right_y);
         
         if (ofGetElapsedTimef() - last_correct_time > 1.5) {
             should_draw_green_ball = false;
-            
             
             std::string rand_chord = chordList[rand() % 12];
             std::string rand_quality = qualityList[rand() % 5];
@@ -183,7 +206,7 @@ void chLearningScene::draw() {
     
     // Right Circle
     ofSetColor(238, 57, 135);
-    ofCircle(x+diameter, right_y, diameter);
+    ofCircle(x+diameter+20, right_y, diameter);
 
         if ((ofGetElapsedTimef() - lastTime_diff) > 0.5){
             // Check if the user is playing the right chord
@@ -209,16 +232,16 @@ void chLearningScene::draw() {
                     current_chord = current_chords[i];
                     
                     ofSetColor(135, 238, 57);
-                    ofCircle(x+diameter, right_y, diameter);
+                    ofCircle(x+diameter+20, right_y, diameter);
 
                     // font color
                     ofSetColor(255, 255, 255);
 
                     // draw target chord
-                    draw_text(expected_chord, -diameter, left_y);
+                    draw_text(expected_chord, -diameter-20, left_y);
 
                     // draw current chord
-                    draw_text(current_chord, diameter, right_y);
+                    draw_text(current_chord, diameter+20, right_y);
 
                     return;
                 }
@@ -234,10 +257,10 @@ void chLearningScene::draw() {
             ofSetColor(255, 255, 255);
 
             // draw target chord
-            draw_text(expected_chord, -diameter, left_y);
+            draw_text(expected_chord, -diameter-20, left_y);
 
             // draw current chord
-            draw_text(current_chord, diameter, right_y);
+            draw_text(current_chord, diameter+20, right_y);
 
             return;
         }
@@ -248,30 +271,9 @@ void chLearningScene::draw() {
         ofSetColor(255, 255, 255);
 
         // draw target chord
-        draw_text(expected_chord, -diameter, left_y);
+        draw_text(expected_chord, -diameter-20, left_y);
 
         // draw current chord
-        draw_text(current_chord, diameter, right_y);
-// =======
-//             draw_text(current_chord, diameter, right_y);
-
-//             return;
-//         }
-//     }
-
-//     // Didn't  play the correct chord
-//     ofSetColor(238, 57, 135);
-//     current_chord = current_chords[0];
-// 	ofCircle(x+diameter, right_y, diameter);
-
-//     // font color
-//     ofSetColor(255, 255, 255);
-
-//     // draw target chord
-//     draw_text(expected_chord, -diameter, left_y);
-
-//     // draw current chord
-//     draw_text(current_chord, diameter, right_y);
-// >>>>>>> parent of fa09845... Revert "practise scene"
+        draw_text(current_chord, diameter+20, right_y);
 
 }
