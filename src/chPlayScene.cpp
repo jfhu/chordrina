@@ -22,6 +22,8 @@ ofxTrueTypeFontUC * font = new ofxTrueTypeFontUC();
 void chPlayScene::setup() {
     bgImg.tmp_a = 255;
     spotLight.tmp_a = 255;
+    perfect.tmp_a = perfect.a = 0;
+    goodjob.tmp_a = goodjob.a = 0;
     
     dots.clear();
     for (size_t i = 0; i < NUM_DOT; i ++) {
@@ -53,6 +55,7 @@ void chPlayScene::setup() {
     font->loadFont("Fonts/Cutie Patootie.ttf", 24);
 
     song.loadSound("Song/song_no_drums_no_piano.mp3");
+    applaud.loadSound("Song/applaud.mp3");
 }
 
 
@@ -96,12 +99,39 @@ void chPlayScene::update() {
                 current_chord += 1;
             }
             
+            current_streak ++;
+            cerr << "streak " << current_streak << endl;
+            
+            if (current_streak > 0 &&
+                (current_streak == 20 ||
+                 current_streak == 40 ||
+                 current_streak == 80 ||
+                 current_streak == 110)) {
+                applaud.play();
+                goodjob.relx = 0.7 + ofRandom(-0.1, 0.1);
+                goodjob.rely = 0.4 + ofRandom(-0.2, 0.2);
+                goodjob.width = ofRandom(400, 600);
+                goodjob.height = goodjob.width / 1100 * 1051;
+                goodjob.a = 0;
+                goodjob.tmp_a = 255;
+                goodjob.dy = 0.5;
+            }
             
             // If close: show PERFECT
             cerr << current_time - cur_chord.time << endl;
             if (current_time - cur_chord.time > -0.7
                 && current_time - cur_chord.time < -0.3) {
                 cerr << "PERFECT" << endl;
+                
+                if (current_streak > 5) {
+                    perfect.relx = 0.7 + ofRandom(-0.1, 0.1);
+                    perfect.rely = 0.4 + ofRandom(-0.2, 0.2);
+                    perfect.width = ofRandom(200, 300);
+                    perfect.height = perfect.width / 868 * 457;
+                    perfect.a = 0;
+                    perfect.tmp_a = 255;
+                    perfect.dy = 0.5;
+                }
                 
                 int counter = NUM_DOT_EACH;
                 for (size_t i = 0; i < dots.size(); i ++) {
@@ -139,6 +169,9 @@ void chPlayScene::update() {
             
             // show MISS
             cerr << "MISS" << endl;
+            
+            current_streak = 0;
+            cerr << "streak " << current_streak << endl;
         }
     }
     
@@ -147,8 +180,13 @@ void chPlayScene::update() {
     for (size_t i = 0; i < dots.size(); i ++) {
         dots[i].move();
         dots[i].dy += 0.2;
-//        dots[i].tmp_a --;
     }
+    
+    perfect.move();
+    perfect.move();
+
+    goodjob.move();
+    goodjob.move();
 }
 
 
@@ -205,8 +243,9 @@ void chPlayScene::draw() {
     }
     
     
-    
-
+    // Draw perfect
+    perfect.drawCenter();
+    goodjob.drawCenter();
 }
 
 

@@ -36,6 +36,7 @@ public:
     
 protected:
     ofSoundPlayer song;
+    ofSoundPlayer applaud;
     void loadChord();
     
     double start_time = 0;
@@ -50,6 +51,11 @@ protected:
     
     vector<chImage> dots;
     chImage dot = chImage("bubble", "Img/bubble.png");
+    
+    chImage perfect = chImage("perfect", "Img/perfect.png");
+    chImage goodjob = chImage("goodjob", "Img/goodjob.png");
+    
+    int current_streak = 0;
     
 };
 
