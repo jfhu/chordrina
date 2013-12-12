@@ -1,6 +1,8 @@
 Chordrina
 ============
 
+Checkout the website https://ccrma.stanford.edu/~kittyshi/256a/chordrina.html
+
 ## How to build:
 1. Download openframeworks
 2. Move the folders into ```openframeworks/apps/chordrina/``` folder
