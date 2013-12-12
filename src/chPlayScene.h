@@ -12,11 +12,18 @@
 #include <iostream>
 #include "chScene.h"
 
+
+enum ISCORRECT {
+    NEW,
+    CORRECT,
+    WRONG
+};
+
 class PianoChord {
 public:
     double time;
     string name;
-    bool is_correct = false;
+    ISCORRECT is_correct = NEW;
     bool should_draw = false;
     PianoChord(double time, string name) : time(time), name(name) {};
 };
@@ -41,6 +48,8 @@ protected:
     chImage bgImg = chImage("stage_background", "Img/stage_bg.png");
     chImage spotLight = chImage("spotlight", "Img/spotlight.png");
     
+    vector<chImage> dots;
+    chImage dot = chImage("bubble", "Img/bubble.png");
     
 };
 

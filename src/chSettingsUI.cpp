@@ -63,8 +63,8 @@ void chSettingScene::setup() {
         }
         gui->addSpacer();
         
-        gui->addLabelButton("Next Chord", "BtnNextChord")
-        ->setColorBack(ofxUIColor(0));
+//        gui->addLabelButton("Next Chord", "BtnNextChord")
+//        ->setColorBack(ofxUIColor(0));
         gui->addLabelButton("Restart", "Restart")
         ->setColorBack(ofxUIColor(0));
         

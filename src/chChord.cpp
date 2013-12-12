@@ -252,3 +252,14 @@ vector<int> chChord::matchChroma(std::vector<int>& chroma) {
     return findMaxIndex(fitness_vector);
     
 }
+
+
+bool chChord::matchName(string name) {
+    vector<string> names = getNames();
+    for (size_t i = 0; i < names.size(); i++) {
+        if (names[i] == name) {
+            return true;
+        }
+    }
+    return false;
+}

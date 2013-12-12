@@ -26,6 +26,7 @@ public:
     vector<string> getNames();
     string getFirstName();
     void printName();
+    bool matchName(string name);
 
 private:
     vector<int> chordId;
