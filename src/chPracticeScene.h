@@ -41,8 +41,10 @@ public:
         double this_height = chProgressionChord::font->stringHeight(name);
         std::cerr << currentx << "," << currenty << std::endl;
         double size = 200;
+        ofSetColor(0, 136, 204, 150);
+        ofSetColor(0, 0, 0, 150);
         bgBubble.draw(currentx * ofGetWidth() - size/2, currenty * ofGetHeight() - size/2 - this_height, size, size);
-        ofSetColor(0, 136, 204);
+        ofSetColor(255, 255, 255, 255);
         chProgressionChord::font->drawString(chord.getFirstName(),
                                              currentx * ofGetWidth() - this_width/2.0,
                                              currenty * ofGetHeight() - this_height/2.0);
@@ -79,10 +81,12 @@ protected:
     chImage bgImg = chImage("background", "Img/bg.jpg");
     
     chImage test = chImage("outer_circle", "Img/outer_circle.png");
+    chImage arrow = chImage("arrow", "Img/arrow.png");
+
     
     std::vector<chProgression> progression;
-    size_t current_progression_indx = 0;
-    size_t current_progression_chord_indx = 0;
+    size_t current_progression_indx;
+    size_t current_progression_chord_indx;
 };
 
 #endif /* defined(__chordrina__chPracticeScene__) */

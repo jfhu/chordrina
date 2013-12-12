@@ -21,9 +21,14 @@ void chProgression::addChord(const chChord & chord) {
 }
 
 void chPracticeScene::setup() {
-    chProgressionChord::font->loadFont("Fonts/Cutie Patootie.ttf", 10);
+    chProgressionChord::font->loadFont("Fonts/Cutie Patootie.ttf", 35);
     
     bgImg.tmp_a = 255;
+    
+    arrow.relx = 0.3;
+    arrow.rely = 0.65;
+    arrow.tmp_a = 0;
+    arrow.a = 255;
     
     // Progressions TODO: read them from midi file
     int arr[5] = {0};
@@ -87,6 +92,9 @@ void chPracticeScene::setup() {
         std::cerr << std::endl;
     }
 
+    current_progression_indx = rand() % progression.size();
+    current_progression_chord_indx = 0;
+    
     chProgression& curProgression = progression[current_progression_indx];
     for (size_t i = 0; i < curProgression.size(); i ++) {
         
@@ -97,7 +105,6 @@ void chPracticeScene::setup() {
         curProgression.chords[i].currenty = 0.5;
     }
     
-    
     test.tmp_a = 255;
     test.width = test.height = 600;
     test.relx = 0.3;
@@ -105,6 +112,19 @@ void chPracticeScene::setup() {
 }
 
 void chPracticeScene::update() {
+    arrow.move();
+    arrow.move();
+    arrow.move();
+    arrow.move();
+    arrow.move();
+    arrow.move();
+    arrow.move();
+    arrow.move();
+    if (arrow.tmp_a == 255) {
+        arrow.a = 0;
+    } else if (arrow.tmp_a == 0) {
+        arrow.a = 255;
+    }
     
     // Move chords
     chProgression& curProgression = progression[current_progression_indx];
@@ -132,24 +152,18 @@ void chPracticeScene::update() {
             }
         }
     }
-        
-    
 }
 
 void chPracticeScene::draw() {
     // Background
     bgImg.draw(0, 0, ofGetWidth(), ofGetHeight());
     
-    test.drawCenter();
+//    test.drawCenter();
+    arrow.drawCenter();
     
     // Progression
     chProgression& curProgression = progression[current_progression_indx];
     for (size_t i = 0; i < curProgression.size(); i ++){
         curProgression.chords[i].draw();
     }
-    
-//    ofCircle(300, 200, 100);
-    
-//    test.r = 255; test.g = 185; test.b = 20;
-
 }
