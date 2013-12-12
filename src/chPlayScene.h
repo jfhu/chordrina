@@ -56,6 +56,7 @@ protected:
     chImage goodjob = chImage("goodjob", "Img/goodjob.png");
     
     int current_streak = 0;
+    int current_perfect_streak = 0;
     
 };
 

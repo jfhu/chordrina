@@ -123,7 +123,9 @@ void chPlayScene::update() {
                 && current_time - cur_chord.time < -0.3) {
                 cerr << "PERFECT" << endl;
                 
-                if (current_streak > 5) {
+                current_perfect_streak ++;
+                
+                if (current_perfect_streak > 5) {
                     perfect.relx = 0.7 + ofRandom(-0.1, 0.1);
                     perfect.rely = 0.4 + ofRandom(-0.2, 0.2);
                     perfect.width = ofRandom(200, 300);
@@ -150,6 +152,8 @@ void chPlayScene::update() {
                         break;
                     }
                 }
+            } else {
+                current_perfect_streak = 0;
             }
             
         }
@@ -171,6 +175,7 @@ void chPlayScene::update() {
             cerr << "MISS" << endl;
             
             current_streak = 0;
+            current_perfect_streak = 0;
             cerr << "streak " << current_streak << endl;
         }
     }
@@ -199,7 +204,9 @@ void chPlayScene::draw() {
     
     // Draw dots
     for (size_t i = 0; i < dots.size(); i ++) {
-        dots[i].drawCenter();
+        if (dots[i].tmp_a > 0) {
+            dots[i].drawCenter();
+        }
     }
     
     // Draw circles

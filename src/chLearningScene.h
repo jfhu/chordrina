@@ -25,7 +25,7 @@ public:
 private:
     chImage bgImg = chImage("background", "Img/bg.jpg");
     chImage bgBubble = chImage("bubble", "Img/bubble.png");
-    
+
     vector<chImage> bgDots;
     
     int best_score = 0;
