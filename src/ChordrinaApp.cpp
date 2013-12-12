@@ -30,27 +30,41 @@ void ChordrinaApp::setup(){
     windowResized(ofGetWidth(), ofGetHeight());
 }
 
-void ChordrinaApp::update() {
-    switch (app_state->current_scene_type) {
+void ChordrinaApp::setScene(SCENE scene) {
+    chScene * current_scene = NULL;
+    
+    switch (scene) {
         case SCENE_LEARN:
-            app_state->current_scene = learning_scene;
+            current_scene = learning_scene;
             break;
             
         case SCENE_PLAY:
-            app_state->current_scene = play_scene;
+            current_scene = play_scene;
             break;
             
         case SCENE_MENU:
-            app_state->current_scene = menu_scene;
+            current_scene = menu_scene;
             break;
             
         case SCENE_PRACTICE:
-            app_state->current_scene = practice_scene;
+            current_scene = practice_scene;
             break;
             
         default:
             break;
     }
+    
+    if (current_scene == app_state->current_scene)
+        return;
+    
+    if (app_state->current_scene)
+        app_state->current_scene->pause();
+    app_state->current_scene_type = scene;
+    app_state->current_scene = current_scene;
+}
+
+void ChordrinaApp::update() {
+    setScene(app_state->current_scene_type);
     app_state->current_scene->update();
 }
 

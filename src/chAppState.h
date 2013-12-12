@@ -15,6 +15,8 @@
 #include "chSynth.h"
 #include "chScene.h"
 
+class ChordrinaApp;
+
 class chAppState {
 public:
     static chAppState * instance();

@@ -116,6 +116,7 @@ void chSettingScene::guiEvent(ofxUIEventArgs &e) {
         } else if (name == "Restart") {
             chAppState::instance()->current_scene->setup();
         } else if (name == "Learn Chord") {
+            chAppState::instance()->
             chAppState::instance()->current_scene_type = SCENE_LEARN;
         } else if (name == "Learn Progression") {
             chAppState::instance()->current_scene_type = SCENE_PRACTICE;

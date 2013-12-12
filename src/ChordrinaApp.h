@@ -33,6 +33,8 @@ public:
     void setup();
     void update();
     void draw();
+    
+    void setScene(SCENE scene);
 
     // Audio I/O
     void audioOut(float * buffer, int bufferSize, int nChannels);

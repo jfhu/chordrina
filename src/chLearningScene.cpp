@@ -166,7 +166,7 @@ void chLearningScene::draw() {
     // Left Circle
     // Right Circle
         chord.printName();
-        cout << current_score << " " << best_score << endl;
+//        cout << current_score << " " << best_score << endl;
         ofDrawBitmapString("Current Score " + ofToString(current_score), ofGetWidth() - 130, 30);
         ofDrawBitmapString("Best Score " + ofToString(best_score), ofGetWidth() - 130, 45);
 
@@ -189,7 +189,7 @@ void chLearningScene::draw() {
         
         // draw current chord
         ofSetColor(255, 255, 255);
-        std::cerr << should_draw_text << std::endl;
+//        std::cerr << should_draw_text << std::endl;
         draw_text(expected_chord, diameter+20, right_y);
         
         if (ofGetElapsedTimef() - last_correct_time > 1.5) {

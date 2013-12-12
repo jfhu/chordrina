@@ -25,6 +25,7 @@ public:
     virtual void update() {};
     virtual void setup() {};
 	virtual void draw() = 0;
+    virtual void pause() {};
 };
 
 

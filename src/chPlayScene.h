@@ -33,6 +33,7 @@ public:
     virtual void setup();
     virtual void update();
     virtual void draw();
+    virtual void pause();
     
 protected:
     ofSoundPlayer song;

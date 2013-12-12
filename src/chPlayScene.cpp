@@ -271,3 +271,9 @@ void chPlayScene::loadChord() {
         end_time = t + OFFSET;
     }
 }
+
+void chPlayScene::pause() {
+    cerr << "PAUSED" << endl;
+    song.stop();
+    setup();
+}

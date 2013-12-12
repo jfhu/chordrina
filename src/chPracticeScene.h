@@ -39,7 +39,7 @@ public:
         string name = chord.getFirstName();
         double this_width = chProgressionChord::font->stringWidth(name);
         double this_height = chProgressionChord::font->stringHeight(name);
-        std::cerr << currentx << "," << currenty << std::endl;
+//        std::cerr << currentx << "," << currenty << std::endl;
         double size = 200;
         ofSetColor(0, 136, 204, 150);
         ofSetColor(0, 0, 0, 150);
