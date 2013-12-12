@@ -54,8 +54,9 @@ void chSettingScene::setup() {
             if (std::find(midi_choices.begin(), midi_choices.end(), current_port_name) == midi_choices.end()) {
                 chAppState::instance()->midi->currentPortName = midi_choices[0];
                 if (chAppState::instance()->midi->currentPortName != current_port_name) {
-                    current_port_name = chAppState::instance()->midi->currentPortName;
-                    chAppState::instance()->midi->setPort(current_port_name);
+//                    current_port_name = chAppState::instance()->midi->currentPortName;
+//                    chAppState::instance()->midi->setPort(current_port_name);
+                    chAppState::instance()->midi->setup();
                 }
             }
             
@@ -100,7 +101,7 @@ void chSettingScene::guiEvent(ofxUIEventArgs &e) {
         ofxUIRadio * radio = (ofxUIRadio*) toggle->getParent();
         if (radio->getName() == "MIDISelect") {
             ofLogNotice() << "setting: " << "Switched midi input to " << toggle->getName();
-            chAppState::instance()->midi->setPort(toggle->getName());
+//            chAppState::instance()->midi->setPort(toggle->getName());
         }
     } else if (kind == OFX_UI_WIDGET_LABELBUTTON) {
         ofxUIButton * button = e.getButton();

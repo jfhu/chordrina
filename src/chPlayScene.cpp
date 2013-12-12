@@ -102,7 +102,7 @@ void chPlayScene::update() {
             current_streak ++;
             cerr << "streak " << current_streak << endl;
             
-            if (current_streak > 0 &&
+            if (current_streak > 0 && !applaud.getIsPlaying() &&
                 (current_streak == 20 ||
                  current_streak == 40 ||
                  current_streak == 80 ||

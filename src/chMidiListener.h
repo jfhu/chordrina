@@ -10,6 +10,7 @@
 #define __chordrina__chMidiListener__
 
 #include <iostream>
+#include <vector>
 #include "ofMain.h"
 #include "ofxMidi.h"
 
@@ -22,13 +23,14 @@ public:
     void newMidiMessage(ofxMidiMessage& eventArgs);
     
     std::vector<std::string> & getPortList();
-    void setPort(std::string portName);
+//    void setPort(std::string portName);
     std::string currentPortName = "";
     
     std::vector<int> getKeys();
 
 private:
-    ofxMidiIn * midiIn = new ofxMidiIn();
+    ofxMidiIn * midi = new ofxMidiIn();
+    std::vector<ofxMidiIn *> midiIns;
 
     std::vector<int> keydown;
 };

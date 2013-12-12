@@ -15,34 +15,51 @@
 #include <vector>
 
 void chMidiListener::setup() {
-    midiIn->ignoreTypes(false, false, false);
-    midiIn->listPorts();
-    std::vector<std::string> & port_list = midiIn->getPortList();
-    if (port_list.size()) {
-        setPort(port_list[0]);
+    // cleanup
+    for (size_t i = 0; i < midiIns.size(); i ++) {
+        midiIns[i]->closePort();
+        midiIns[i]->removeListener(this);
     }
-    midiIn->addListener(this);
-    midiIn->setVerbose(true);
+    
+    // get device list
+    std::vector<std::string> & port_list = midi->getPortList();
+    
+    // create rtMidi instances
+    for (size_t i = 1; i < port_list.size(); i ++) {
+        ofxMidiIn * midiIn = new ofxMidiIn();
+        midiIn->ignoreTypes();
+        midiIn->addListener(this);
+        midiIn->setVerbose(true);
+        midiIn->openPort(port_list[i]);
+        midiIns.push_back(midiIn);
+    }
 }
 
 void chMidiListener::exit() {
-    midiIn->closePort();
-    midiIn->removeListener(this);
+    for (size_t i = 0; i < midiIns.size(); i ++) {
+        midiIns[i]->closePort();
+        midiIns[i]->removeListener(this);
+    }
 }
 
 std::vector<std::string> & chMidiListener::getPortList() {
-    return midiIn->getPortList();
+    return midi->getPortList();
 }
 
-void chMidiListener::setPort(std::string portName) {
-    ofLogNotice() << "midiListener: " << "Setting port to " << portName;
-    midiIn->closePort();
-    midiIn->openPort(portName);
-    currentPortName = portName;
-}
+//void chMidiListener::setPort(std::string portName) {
+//    return;
+//    
+//    
+//    ofLogNotice() << "midiListener: " << "Setting port to " << portName;
+//    midiIn->closePort();
+//    midiIn->openPort(portName);
+//    currentPortName = portName;
+//}
 
 void forwardMidiMessageToSynth(ofxMidiMessage& msg) {
     chSynth * synth = chAppState::instance()->synth;
+    if (!synth)
+        return;
     switch (msg.status) {
         case MIDI_NOTE_OFF:
             synth->noteOff(msg.channel, msg.pitch);
@@ -79,14 +96,18 @@ void chMidiListener::newMidiMessage(ofxMidiMessage& msg) {
         msg.status = MIDI_NOTE_OFF;
     }
 
-//    ofLogNotice() << "midiListener: " << msg.toString() << msg.pitch;
+    ofLogNotice() << "midiListener: " << msg.toString() << msg.pitch;
 
+    // Play every channel
     forwardMidiMessageToSynth(msg);
 
-    if (msg.velocity == 0) {
-        keydown.erase(std::remove(keydown.begin(), keydown.end(), msg.pitch), keydown.end());
-    } else {
-        keydown.push_back(msg.pitch);
+    // Only remember channel 1 for keydowns
+    if (msg.channel == 1) {
+        if (msg.velocity == 0) {
+            keydown.erase(std::remove(keydown.begin(), keydown.end(), msg.pitch), keydown.end());
+        } else {
+            keydown.push_back(msg.pitch);
+        }
     }
 
 }
