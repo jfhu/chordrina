@@ -19,7 +19,9 @@ void chMidiListener::setup() {
     for (size_t i = 0; i < midiIns.size(); i ++) {
         midiIns[i]->closePort();
         midiIns[i]->removeListener(this);
+        delete midiIns[i];
     }
+    midiIns.clear();
     
     // get device list
     std::vector<std::string> & port_list = midi->getPortList();
@@ -39,7 +41,9 @@ void chMidiListener::exit() {
     for (size_t i = 0; i < midiIns.size(); i ++) {
         midiIns[i]->closePort();
         midiIns[i]->removeListener(this);
+//        delete midiIns[i];
     }
+//    midiIns.clear();
 }
 
 std::vector<std::string> & chMidiListener::getPortList() {
@@ -103,7 +107,7 @@ void chMidiListener::newMidiMessage(ofxMidiMessage& msg) {
 
     // Only remember channel 1 for keydowns
     if (msg.channel == 1) {
-        if (msg.velocity == 0) {
+        if (msg.velocity == 0 || msg.status == MIDI_NOTE_OFF) {
             keydown.erase(std::remove(keydown.begin(), keydown.end(), msg.pitch), keydown.end());
         } else {
             keydown.push_back(msg.pitch);

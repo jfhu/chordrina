@@ -59,6 +59,12 @@ protected:
     int current_streak = 0;
     int current_perfect_streak = 0;
     
+    // drums
+    vector<double> hihat;
+    vector<double> kick;
+    vector<double> snare;
+    void loadDrumFile(string filename, vector<double>& dest);
+    void loadDrums();
 };
 
 #endif /* defined(__chordrina__chPlayScene__) */

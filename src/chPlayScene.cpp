@@ -42,8 +42,10 @@ void chPlayScene::setup() {
         dots.push_back(dot);
     }
     
-
-    
+    chords.clear();
+    hihat.clear();
+    kick.clear();
+    snare.clear();
     
     start_time = 0;
     current_time = 0;
@@ -52,10 +54,15 @@ void chPlayScene::setup() {
     chords.clear();
     
     loadChord();
+//    loadDrums();
     font->loadFont("Fonts/Cutie Patootie.ttf", 24);
 
     song.loadSound("Song/song_no_drums_no_piano.mp3");
     applaud.loadSound("Song/applaud.mp3");
+    
+//    chords[0].is_correct = CORRECT;
+//    chords[1].is_correct = CORRECT;
+//    chords[2].is_correct = CORRECT;
 }
 
 
@@ -240,6 +247,20 @@ void chPlayScene::draw() {
         font->drawString(chords[i].name, x - str_width/2.0, y + 10);
     }
     
+//    // draw drums
+//    for (size_t i = 0; i < kick.size(); i ++) {
+//        double offset = kick[i] - current_time;
+//        if (offset < 6.0 && offset > -1.0) {
+//            double relx = (offset) / 5.0;
+//            double x = (relx+0.2) * ofGetWidth();
+//            double y = 0.55 * ofGetHeight();
+//            ofSetColor(255, 0, 0, 255);
+//            ofCircle(x, y, 15);
+//        }
+//    }
+    
+    
+    
     // If Ended, draw restart
     if (current_time > end_time) {
         ofSetColor(150, 0, 0);
@@ -270,6 +291,23 @@ void chPlayScene::loadChord() {
         chords.push_back(PianoChord(start + OFFSET, name));
         end_time = t + OFFSET;
     }
+}
+
+void chPlayScene::loadDrumFile(string filename, vector<double>& dest) {
+    ifstream infile(ofToDataPath("Song/hihat.txt").c_str());
+    string line;
+    while (getline(infile, line)) {
+        stringstream ss(line);
+        double t;
+        ss >> t;
+        dest.push_back(t);
+    }
+}
+
+void chPlayScene::loadDrums() {
+    loadDrumFile("hihat.txt", hihat);
+    loadDrumFile("kick.txt", kick);
+    loadDrumFile("snare.txt", snare);
 }
 
 void chPlayScene::pause() {
