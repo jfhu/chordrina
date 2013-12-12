@@ -25,7 +25,7 @@ void chMidiListener::setup() {
     std::vector<std::string> & port_list = midi->getPortList();
     
     // create rtMidi instances
-    for (size_t i = 1; i < port_list.size(); i ++) {
+    for (size_t i = 0; i < port_list.size(); i ++) {
         ofxMidiIn * midiIn = new ofxMidiIn();
         midiIn->ignoreTypes();
         midiIn->addListener(this);
