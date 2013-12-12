@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Chordrina</title>
+
+    <!-- bootstrap -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
+    <!-- Le styles -->
+    <!-- <link href="assets/css/bootstrap.css" rel="stylesheet"> -->
+    <style type="text/css">
+      body {
+      	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  	    font-weight: 300;
+        /*font-size: 16px;*/
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .hero-unit {
+        text-align: center;
+      }
+      h3 {
+        /*font-size: 18px;*/
+      }
+      p {
+        text-align: left;
+        width: 600px;
+        margin: 10px auto 0;
+      }
+      .strong {
+        text-align: left;
+        margin-top: 10px;
+      }
+      footer {
+        margin-top: 30px;
+        text-align: center;
+        /*font-size: 14px;*/
+      }
+      img {
+        width: 600px;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <!-- <div class="navbar-inner"> -->
+        <!-- <div class="container"> -->
+          <div style="text-align: right; color:white; margin-top: 14px; margin-right: 20px; font-size: 14px;">Music256a Fall 2013 Final Project</div><!--/.nav-collapse -->
+        <!-- </div> -->
+      <!-- </div> -->
+    </div>
+	<div class="container">
+
+      <!-- Main hero unit for a primary marketing message or call to action -->
+      <div class="hero-unit">
+        <h1>Chordrina - an interactive app for chord learning</h2>
+        <h3>Zhengshan Shi &amp; Jianfeng Hu</h3>
+        <br/>
+        <img src="chordrina/title.png" style="width: 400px" />
+        <br/>
+        <p>We are developing an educational-involving game for music lovers who are interested in learning harmony and chord progressions.</p>
+        <p>We also incorporate the chord progression as a music accompaniment in the game mode</p>
+        <br/>
+        <!-- <div><a class="btn btn-primary btn-large" href= "https://github.com/jfhu/chordrina/">&laquo; Download the Code &raquo;</a></a></div> -->
+      </div>
+
+      <div class="hero-unit">
+      <h2>Introduction + Motivation</h2>
+      <p>The study of harmony involves chord construction and progression. While a traditional paper-chorale style exercise is a good initial way to approach harmony study, keyboard harmony extends its theoretical concepts onto a real musical instrument -- Hearing the chords improves the study of harmony. </p>
+      <p>Chordrina is an educational-involving game for music lovers who are interested in learning harmony and chord progressions.
+We provide real-time feedback of chord that's being played by the user and incorporate the chord progression as a music accompaniment in the game mode.</p>
+      </div>
+
+      <div class="hero-unit">
+        <h2>Live Demo</h2>
+      	<em>Demo Video is coming soon</em>
+      </div>
+
+      <div class="hero-unit">
+        <h2>Design</h2>
+        <p>The 'Chordrina' version of harmony training is divided into three stages:</p>
+        <br/>
+        <p><strong>1. Learning Stage</strong></p>
+        <img src="chordrina/mode1.png"/>
+        <p>In this stage, we're purely testing if the learner is familiar with the construction of a single chord. Chordrina is assigning a chord to-be-played, and listening to the user input through midi instrument. Chords including major, minor, augmented, and diminished triads, dominant and diminished seventh chord. The root key of the chord is also assigned by Chordrina.</p>
+        <br/>
+        <p><strong>2. Chord Progression Stage</strong></p>
+        <img src="chordrina/mode2.png"/>
+        <p>In this stage, the user is entering a chord-progression training mode - understanding the colors in switching chords.</p>
+        <br/>
+        <p><strong>3. Game Mode</strong></p>
+        <img src="chordrina/mode3.png"/>
+        <p>Now the player is equipped with solid keyboard harmony training to enter the final stage -- applying chord progressions to a song. We were taking only the vocal part of the pop songs, and assign the user chord progression along with time.</p>
+        <p>Game mode has multiplayer support. You can plug-in multiple midi inputs. Setting them to different channels will allow multiple instruments playing together.</p>
+      </div>
+
+      <div class="hero-unit">
+        <h2>Technical Approach</h2>
+        <p>We created this program using C++ along with OpenFrameworks for graphics and fluidsynth for audio. We mapped the user input into a 12-dimensional chroma feature, and recognized the chord through matching with the binary chord templates. </p>
+        <p>For the GUI part, we utilized some particle systems to create the immersive interface and explosive effects.</p>
+        <div><a class="btn btn-primary btn-large" href= "https://github.com/jfhu/chordrina/">&laquo; Download the Code &raquo;</a></a></div>
+      </div>
+
+
+
+      <footer>
+        <div>&copy; Music256a Zhengshan Shi &amp; Jianfeng Hu, Fall 2013</div>
+      </footer>
+
+    </div>
+  </body>
+</html>
