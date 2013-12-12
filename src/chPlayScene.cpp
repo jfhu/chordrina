@@ -106,7 +106,7 @@ void chPlayScene::update() {
                 (current_streak == 20 ||
                  current_streak == 40 ||
                  current_streak == 80 ||
-                 current_streak == 110)) {
+                 current_streak == 110 || current_chord >= 110)) {
                 applaud.play();
                 goodjob.relx = 0.7 + ofRandom(-0.1, 0.1);
                 goodjob.rely = 0.4 + ofRandom(-0.2, 0.2);
